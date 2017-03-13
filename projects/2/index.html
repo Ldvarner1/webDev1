@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery.parseXML demo</title>
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <style type="text/css">
+      body {
+    background-color: green;
+}
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #FFF000;
+    margin: 1em 0;
+    padding: 0; 
+}
+  </style>
+  <link rel="manifest" href="manifest.json">
+   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Weather PWA">
+  <link rel="apple-touch-icon" href="images/icons/icon-152x152.png">
+
+</head>
+<body>
+   <h1> Click the Button to View a Bus Route</h1>
+  <button type="button" id="btnSearch49N" >49 Western NorthBound</button>
+  <button type="button" id="btnSearch49S" >49 Western SouthBound</button>
+   
+   <div id = results>
+       
+
+   </div>   
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+      <script>
+       $(function () { 
+        
+   var apiPassThruUrl = "https://polar-garden-75406.herokuapp.com/apiPassThru.php";
+             
+    var apiEndpoint = "http://www.ctabustracker.com/bustime/api/v2/getpredictions";
+    
+    $("#btnSearch49N").on("click", function() {
+             
+    
+        $("#results").html("");
+        $.ajax({
+              url: apiPassThruUrl,
+              dataType: "json",
+              method: 'GET',
+              data: {"apiEndpoint": apiEndpoint,
+                      "key" : "EQYWYgJcEXWc5Ta6p9nq78RTs",
+                      "format":"json",
+                        "stpid": 8417
+                        
+              }
+            }).done (function (data) {
+              console.log(data);
+              $("#results").append("<h1>Bus Routes for Western and Addison NorthBound</h1>");
+             
+              $.each(data["bustime-response"]["prd"], function(i,v) {
+                  $("#results").append("Bus Number: "+ v.rt +", Time to Arrival: "+ v.prdctdn + " minutes, Distance to Stop: "+ v.dstp + " feet"+"<hr>"+"<br>");
+                
+              })
+
+            });
+        });
+       
+        $("#btnSearch49S").on("click", function() {
+            $("#results").html("");
+        $.ajax({
+              url: apiPassThruUrl,
+              dataType: "json",
+              method: 'GET',
+              data: {"apiEndpoint": apiEndpoint,
+                      "key" : "EQYWYgJcEXWc5Ta6p9nq78RTs",
+                      "format":"json",
+                        "stpid": 8195
+                        
+              }
+            }).done (function (data) {
+              console.log(data);
+              $("#results").append("<h1>Bus Routes for Western and Addison SouthBound</h1>");
+             
+              $.each(data["bustime-response"]["prd"], function(i,v) {
+                  $("#results").append("Bus Number: "+ v.rt +", Time to Arrival: "+ v.prdctdn + " minutes, Distance to Stop: "+ v.dstp + " feet"+"<hr>"+"<br>");
+                
+              })
+
+            });
+        });
+           
+           
+           
+       });
+</script>
+ 
+ 
+</body>
+</html>
