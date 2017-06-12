@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Space Collectert</title>
+    <style>
+    canvas {
+      border: #333 5px solid;
+      background-image: url("space.jpg");
+    }
+  </style>
+  </head>
+  <body>
+    <canvas id = "myCanvas" width="1000px" height="550px">
+       
+      </canvas>
+      
+      
+      <div id = "div">
+        <center>
+        <h2> Space Collecter</h2>
+        </center>
+        Welcome to Space Collector where your main goal is to gather precious metals flying through space while dodging asteroids.
+        Collect the silver squares to gain metals. Dogde the orange squares or see your score plummet.
+        Use the up and down arrow keys to move up and down to collect the precious metals. If the screen freezes mid game that my mean you are out of lives, just refresh the page to play again.
+        
+        
+        
+        
+        
+        
+        
+      </div>
+    
+    <script data-cloud9-id='9'>
+    var canvas = document.querySelector("#myCanvas");
+    var context = canvas.getContext("2d");
+     var y = 20;
+      var x = window.innerWidth
+      var lives = 3;
+      var score = 0;
+      var level = 1;
+      var paused = false;
+    
+      context.rect(20,y, 50, 50);
+      context.fill();
+      var frames = 0;
+      var harm = [];
+   window.addEventListener("keydown", dealWithKeyboardDown, false);
+    window.addEventListener("keyup", dealWithKeyboardUp, false);
+   var yMove = 0;
+     
+     animate();
+    function dealWithKeyboardDown(e) {
+        
+        switch(e.keyCode) {
+          case 38:
+              {
+                yMove = -15;
+              }
+              break;
+          case 40:
+              {
+                yMove = 15;
+              }
+              break;
+        
+        }
+        e.preventDefault();
+    }
+    
+    function dealWithKeyboardUp(e) {
+        
+        switch(e.keyCode) {
+          case 38:
+              {
+                yMove = 0;
+              }
+              break;
+          case 40:
+              {
+                yMove = 0;
+              }
+              break;
+        
+        }
+        e.preventDefault();
+    }
+      
+     function checkCollision(harm) {
+       if ((harm[0] < 45) && (y < harm[1] + 55) && (y + 45 > harm[1])) {
+         console.log(harm[0] < x+50);
+         console.log("true");
+         return true;
+       } else {
+         console.log("false");
+         return false;
+       }
+     }
+        
+        function animate() {
+        
+        context.clearRect(0,0, canvas.width, canvas.height);
+        context.beginPath();
+          context.rect(20,y, 50, 50);
+          context.closePath();
+          context.fillStyle = "blue";
+          context.fill();
+          frames += 1;
+          y += yMove ;
+          
+          if (y < -50) {
+            y = canvas.height;
+          }
+          
+          if (y > canvas.height) {
+            y = -70;
+          }
+          
+          if (frames % 30 == 0) {
+            harm.push([canvas.width, Math.floor(Math.random() * (canvas.height- 60)), Math.floor(Math.random() * 2)]); 
+          } 
+          var newHarm = [];
+          for(harm of harm){
+              context.beginPath();
+              context.rect(harm[0], 30 + harm[1], 20, 20);
+              context.closePath();
+              harm[0]-= 15;
+              context.lineWidth = 5;
+              if (harm[2] == 0) {
+                context.fillStyle = "orange";
+              } else if (harm[2] == 1) {
+                 
+                context.fillStyle = "silver";
+              }
+              context.fill();
+              if (checkCollision(harm)) {
+                if (harm[2] == 0) {
+                score = 0;
+                lives = lives - 1;
+              } else if (harm[2] == 1) {
+                 score += 1;
+              }
+                
+              } else if (harm[0] >= 0) {
+                newHarm.push(harm);
+              }
+           
+          }
+          harm = newHarm;
+        
+        
+        if (score == 5){
+          level = 2;
+        }
+        else if (score < 5){
+          level = 1
+          
+        }
+        else if (score == 10){
+          level = 3;
+        }
+        else if (score == 15){
+          level = 4;
+        }
+         else if (score == 20){
+          level = 5;
+        }
+        
+       else if (score == 25){
+          level = 6;
+        }
+         else if (score == 30){
+          level = 7;
+        }
+        else if (score > 31){
+          level = "GG";
+         
+        }
+        
+        context.fillStyle = "steelblue";
+        context.font = "24px Arial";
+        context.fillText("Score:" + score + "     Level:" + level + "    Lives:"+ lives, canvas.width / 4, 50);
+         if (lives == 0){
+          return;
+          
+         }
+        if (!paused) {
+          requestAnimationFrame(animate);
+         
+        }
+       
+      }
+      
+      
+      
+      
+      
+    </script>
+    
+    
+  </body>
+</html>

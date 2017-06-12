@@ -1,0 +1,15 @@
+{
+  "short_name": "Console Comparer",
+  "name": "Console Comparer",
+  "icons": [
+    {
+      "src":"images/iconC.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "index.html?utm_source=homescreen=1",
+  "background_color": "#ffffff",
+  "Theme_color": "#ffffff",
+  "display": "standalone"
+}

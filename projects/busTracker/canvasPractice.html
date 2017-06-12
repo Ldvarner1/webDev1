@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <style>
+    canvas {
+      border: #333 10px solid;
+    }
+  </style>
+</head>
+ 
+<body>
+ <canvas id = "myCanvas" width="550px" height="350px">
+     
+ </canvas>
+ 
+ <script type="text/javascript">
+     
+     var canvas = document.querySelector("#myCanvas");
+     var context = canvas.getContext("2d");
+     
+     var canvasWidth = canvas.width;
+     var canvasHeight = canvas.height;
+     
+     
+    context.moveTo(50, 50);
+    context.lineTo(450, 300);
+    context.closePath();
+    context.lineWidth = 45;
+    context.strokeStyle = "steelblue";
+    context.stroke(); 
+    
+  function draw() {
+    // draw the colored region
+    context.beginPath();
+    context.arc(200, 200, 93, 0, 2 * Math.PI, true);
+    context.fillStyle = "#E2FFC6";
+    context.fill();
+ 
+    // draw the stroke
+    context.lineWidth = 20;
+    context.strokeStyle = "#66CC01";
+    context.stroke();
+    
+    context.beginPath();
+    context.moveTo(400,300)
+    context.arc(400,300,50,0,2 * Math.PI, true);
+    context.fillStyle = "black";
+    context.fill();
+    
+    context.beginPath();
+    context.moveTo(100,400)
+    context.arc(300,400,50,0,2 * Math.PI, true);
+    context.fillStyle = "black";
+    context.fill();
+    
+}
+ draw();   
+    
+context.beginPath();
+context.moveTo(100, 100);
+context.lineTo(100, 300);
+context.lineTo(300, 300);
+context.closePath();
+context.lineWidth = 10;
+context.strokeStyle = '#666666';
+context.stroke();
+context.fillStyle = "#FFCC00";
+context.fill();
+    
+    
+    
+    
+ </script>
+ <script>
+        var canvas = document.getElementById("myCanvas");
+            var ctx = canvas.getContext("2d");
+            var pathEndX;
+            var pathEndY;
+             var circleColor = "#000000";
+            var circleX = 100;
+            var circleY = 100;
+            ctx.beginPath();
+            ctx.arc(circleX,circleY,20,0,2*Math.PI);
+            ctx.fill();
+           
+           
+            var moveCircle = function(e) {
+                console.log(e);
+                
+               // ctx.clearRect(0,0,canvas.width,canvas.height);
+                
+                if (e.keyCode == 39) {
+                    circleX = circleX + 5;
+                    var circleColor = '#'+ Math.floor(Math.random()*16777215).toString(16);
+                     
+                }
+                
+                if (e.keyCode == 37) {
+                    circleX = circleX - 5;
+                    var circleColor = '#'+ Math.floor(Math.random()*16777215).toString(16);
+                     
+                }
+                 if (e.keyCode == 38) {
+                    circleY = circleY - 5;
+                    var circleColor = '#'+ Math.floor(Math.random()*16777215).toString(16);
+                     
+                }
+                
+                 if (e.keyCode == 40) {
+                    circleY = circleY + 5;
+                    var circleColor = '#'+ Math.floor(Math.random()*16777215).toString(16);
+                   
+                }
+                 if (e.keyCode == 32) {
+                     ctx.clearRect(0,0,canvas.width,canvas.height);
+                }
+                
+                
+                
+                
+                
+                ctx.beginPath();
+                ctx.arc(circleX,circleY,20,0,2*Math.PI);
+                ctx.fillStyle = circleColor;
+                ctx.fill();
+            }
+           document.addEventListener("keydown", moveCircle ); 
+ </script>
+ 
+ 
+
+ 
+ 
+</body>
+ 
+</html>

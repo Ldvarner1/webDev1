@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+     <style>
+    canvas {
+      border: #333 10px solid;
+    }
+  </style>
+</head>
+ 
+<body>
+ <canvas id = "myCanvas" width="550px" height="350px">
+     
+ </canvas>
+ 
+<script type="text/javascript">
+var canvas = document.querySelector("#myCanvas");
+var context = canvas.getContext("2d");
+
+var textX = 60;
+var textY = 125;
+var direction = 5;
+context.font = "bold 70px Helvetica, Arial, sans-serif";
+//var name = context.fillText("Liam Varner", textX, textY);
+ var color = context.fillStyle = "steelblue";
+
+
+  function draw() {
+                var color = '#'+ Math.floor(Math.random()*16777215).toString(16);
+                context.clearRect(0,0,canvas.width,canvas.height);
+                 context.fillStyle = color;
+                    context.fillText("Liam", textX, textY);
+               
+                if (textX >= canvas.width) {
+                    direction = -5;
+                    
+                } 
+                else if (textX <= 0){
+                    direction = 5;
+                }
+                
+                
+                
+                textX = textX + direction;
+      
+            
+
+         
+         
+         
+         
+         
+         
+         
+                
+                
+                
+                
+                
+                
+                
+                
+                window.requestAnimationFrame(draw);
+            }
+            
+            window.requestAnimationFrame(draw);
+            
+        
+
+</script> 
+ 
+ 
+</body>
+ 
+</html>
