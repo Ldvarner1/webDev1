@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>repl.it</title>
+    <style>
+    canvas {
+      border: #333 5px solid;
+      background-image: url("http://www.schonewallpaper.de/static/images/space-hd-desktop-wallpaper-view_CkiCoLu.jpg");
+    }
+  </style>
+  </head>
+  <body>
+    <canvas id = "myCanvas" width="700px" height="550px">
+    <!-- 
+      need a canvas element here
+    
+    -->
+    
+    
+    
+    <script>
+    var canvas = document.querySelector("#myCanvas");
+    var context = canvas.getContext("2d");
+ 
+ 
+
+
+      context.font = "bold 20px Helvetica, Arial, sans-serif";
+      var livesRemaining = 3;
+      var score = 0;
+      var level = 1;
+      var paused = false;
+      var charY =300;
+      var direction = 5;
+      
+      
+      
+     var harmX = canvas.width;
+     context.beginPath();
+     context.arc(50,charY,20,0,2*Math.PI);
+     context.fill();
+      
+      
+      
+      var player = {x: 0, y: 0, costume: "", speed: 1};
+      var harm = {x: 0, y: 0, costume: "", speed: 1};
+      var benefit = {x: 0, y: 0, costume: ""};
+    
+      function animate() {
+        
+        var moveCircle =function(e) {
+                console.log(e);
+                
+               context.clearRect(0,0,canvas.width,canvas.height);
+                
+               
+                 if (e.keyCode == 38) {
+                    charY = charY - 10;
+                     
+                }
+                
+                 if (e.keyCode == 40) {
+                    charY = charY + 10;
+                   
+                }
+                
+                
+                
+                
+                
+                context.beginPath();
+                context.arc(50,charY,20,0,2*Math.PI);
+                context.fillStyle = "#000000" ;
+                context.fill();
+                
+ 
+            }
+           
+         context.clearRect(0,0,canvas.width,canvas.height);
+        
+                context.beginPath();
+                context.arc(harmX, 80, 20, 0, 2 * Math.PI);
+                context.fill();
+
+                if (harmX >= canvas.width) {
+                    direction = -5;
+                } 
+                else if (harmX <= 0){
+                    direction = 5;
+                }
+                
+                
+                context.beginPath();
+                context.arc(harmX, 210, 20, 0, 2 * Math.PI);
+                context.fill();
+
+                if (harmX >= canvas.width) {
+                    direction = -5;
+                } 
+                else if (harmX <= 0){
+                    harmX = canvas.width;
+                }
+                
+                
+                context.beginPath();
+                context.arc(harmX, 410, 20, 0, 2 * Math.PI);
+               
+                context.fill();
+
+                if (harmX >= canvas.width) {
+                    direction = -5;
+                } 
+                else if (harmX <= 0){
+                    direction = 5;
+                }
+                
+                
+                
+                
+                
+                harmX = harmX + direction;
+                
+                
+                context.fillStyle = "steelblue";
+                context.fillText("Lives Remaining: "+ livesRemaining + "      Score: " + score + "     Level: " + level, 0, 20);
+                context.fillStyle = "brown";
+                document.addEventListener("keydown", moveCircle );   
+     window.requestAnimationFrame(animate);
+            }
+            
+            window.requestAnimationFrame(animate);
+
+      
+    </script>
+    
+  </body>
+</html>
